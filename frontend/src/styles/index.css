@@ -313,7 +313,126 @@ td small {
   border-color: #ffb8ae;
 }
 
+.notice.info {
+  background: #e7f3ff;
+  border-color: #93c5fd;
+}
+
+.time-slots-group {
+  display: grid;
+  gap: 6px;
+}
+
+.time-slots-label {
+  color: #415158;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.time-slots-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.time-slot-option {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  font-weight: 400;
+  font-size: 13px;
+  color: #415158;
+  cursor: pointer;
+}
+
+.time-slot-option input {
+  min-height: auto;
+  width: auto;
+  margin: 0;
+}
+
+.skipped-list {
+  display: grid;
+  gap: 8px;
+}
+
+.skipped-item {
+  align-items: center;
+  background: #fff8e7;
+  border: 1px solid #f0d595;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.skipped-date {
+  font-weight: 600;
+  color: #946200;
+  min-width: 120px;
+}
+
+.skipped-reason {
+  color: #415158;
+}
+
+.suspended-form {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(180px, 1fr) minmax(200px, 2fr) auto;
+  align-items: end;
+  margin-bottom: 16px;
+}
+
+.suspended-list {
+  display: grid;
+  gap: 8px;
+}
+
+.suspended-item {
+  align-items: center;
+  background: #ffe9e7;
+  border: 1px solid #ffb8ae;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.suspended-item span:first-child {
+  font-weight: 600;
+  color: #b42318;
+  min-width: 120px;
+}
+
+.suspended-item span:nth-child(2) {
+  flex: 1;
+  color: #415158;
+}
+
+.icon-button {
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: #b42318;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.icon-button:hover {
+  background: rgba(180, 35, 24, 0.1);
+}
+
+.toolbar-panel {
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 1fr) minmax(120px, 140px) minmax(280px, 2fr) auto auto;
+}
+
 @media (max-width: 900px) {
+  .suspended-form,
+  .toolbar-panel {
+    grid-template-columns: 1fr;
+  }
   .app-shell,
   .two-column,
   .metrics-grid,

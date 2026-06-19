@@ -32,6 +32,21 @@ export const api = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+  previewSchedule: (payload) =>
+    request("/schedule/preview", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  getSuspendedDates: () => request("/schedule/suspended-dates"),
+  addSuspendedDate: (payload) =>
+    request("/schedule/suspended-dates", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  deleteSuspendedDate: (dateStr) =>
+    request(`/schedule/suspended-dates/${dateStr}`, {
+      method: "DELETE",
+    }),
   getAttendance: () => request("/attendance"),
   recordAttendance: (payload) =>
     request("/attendance", { method: "POST", body: JSON.stringify(payload) }),

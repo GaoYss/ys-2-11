@@ -20,6 +20,7 @@ export default function App() {
   const [schedule, setSchedule] = useState([]);
   const [attendance, setAttendance] = useState([]);
   const [stats, setStats] = useState([]);
+  const [suspendedDates, setSuspendedDates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -35,19 +36,21 @@ export default function App() {
 
   async function refreshAll() {
     setError("");
-    const [classData, courseData, scheduleData, attendanceData, statsData] =
+    const [classData, courseData, scheduleData, attendanceData, statsData, suspendedData] =
       await Promise.all([
         api.getClasses(),
         api.getCourses(),
         api.getSchedule(),
         api.getAttendance(),
         api.getHourStats(),
+        api.getSuspendedDates(),
       ]);
     setClasses(classData);
     setCourses(courseData);
     setSchedule(scheduleData);
     setAttendance(attendanceData);
     setStats(statsData);
+    setSuspendedDates(suspendedData);
   }
 
   useEffect(() => {
@@ -68,6 +71,20 @@ export default function App() {
 
   async function handleGenerateSchedule(payload) {
     await api.generateSchedule(payload);
+    await refreshAll();
+  }
+
+  async function handlePreviewSchedule(payload) {
+    return await api.previewSchedule(payload);
+  }
+
+  async function handleAddSuspendedDate(payload) {
+    await api.addSuspendedDate(payload);
+    await refreshAll();
+  }
+
+  async function handleDeleteSuspendedDate(dateStr) {
+    await api.deleteSuspendedDate(dateStr);
     await refreshAll();
   }
 
@@ -137,7 +154,11 @@ export default function App() {
                 classes={classes}
                 courses={courses}
                 schedule={schedule}
+                suspendedDates={suspendedDates}
                 onGenerate={handleGenerateSchedule}
+                onPreview={handlePreviewSchedule}
+                onAddSuspendedDate={handleAddSuspendedDate}
+                onDeleteSuspendedDate={handleDeleteSuspendedDate}
               />
             )}
             {activeTab === "attendance" && (

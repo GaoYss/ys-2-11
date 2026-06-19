@@ -4,6 +4,7 @@ from datetime import date
 
 class TrainingStore:
     def __init__(self):
+        self.suspended_dates = []
         self.classes = [
             {
                 "id": 1,
@@ -67,8 +68,37 @@ class TrainingStore:
                 "courses": self.courses,
                 "schedule": self.schedule,
                 "attendance": self.attendance,
+                "suspended_dates": self.suspended_dates,
             }
         )
+
+    def add_suspended_date(self, date_str, reason=""):
+        if date_str not in [item["date"] for item in self.suspended_dates]:
+            self.suspended_dates.append(
+                {
+                    "id": self.next_id("suspended_dates"),
+                    "date": date_str,
+                    "reason": reason or "停课",
+                }
+            )
+            return True
+        return False
+
+    def remove_suspended_date(self, date_str):
+        initial_length = len(self.suspended_dates)
+        self.suspended_dates = [
+            item for item in self.suspended_dates if item["date"] != date_str
+        ]
+        return len(self.suspended_dates) < initial_length
+
+    def is_suspended(self, date_str):
+        return any(item["date"] == date_str for item in self.suspended_dates)
+
+    def get_suspended_reason(self, date_str):
+        for item in self.suspended_dates:
+            if item["date"] == date_str:
+                return item["reason"]
+        return None
 
 
 store = TrainingStore()
